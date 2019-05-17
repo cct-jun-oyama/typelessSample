@@ -3,8 +3,9 @@ import { GlobalActions } from 'src/features/global/interface';
 import styled from 'styled-components';
 import { useActions } from 'typeless';
 import { Button } from './Button';
+import { Link } from 'src/components/Link';
 
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   padding: 1rem 1.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -32,7 +33,10 @@ export const Dashboard = (props: DashboardProps) => {
   return (
     <>
       <Header>
-        <AppName>Starter</AppName>
+        <AppName>test app</AppName>
+        <Link href="/sample1">sample1</Link>
+        <Link href="/sample2">sample2</Link>
+        <Link href="/mypage">myPage</Link>
         <Button onClick={logout}>logout</Button>
       </Header>
       <Main>{children}</Main>
