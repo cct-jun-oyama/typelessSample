@@ -24,6 +24,11 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     color: #212529;
   }
+
+  a {
+    cursor: pointer;
+    color: #0f7cf1;
+  }
 `;
 
 export const App = () => {
