@@ -9,9 +9,15 @@ export const epic = createEpic(MODULE);
 // --- Reducer ---
 const initialState: MyPageState = {
   foo: 'bar',
+  viewType: null,
 };
 
-export const reducer = createReducer(initialState);
+export const reducer = createReducer(initialState).on(
+  MyPageActions.show,
+  (state, { viewType }) => {
+    state.viewType = viewType;
+  }
+);
 
 // --- Module ---
 export default () => {

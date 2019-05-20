@@ -7,8 +7,9 @@ import { createActions } from 'typeless';
 export const MODULE = 'myPage';
 
 // --- Actions ---
-export const MyPageActions = createActions(MODULE, {});
-
+export const MyPageActions = createActions(MODULE, {
+  show: (viewType: ViewType) => ({ payload: { viewType } }),
+});
 // --- Routing ---
 const ModuleLoader = React.lazy(() => import('./module'));
 
@@ -28,6 +29,7 @@ export const routeConfig: RouteConfig = {
 // --- Types ---
 export interface MyPageState {
   foo: string;
+  viewType: ViewType | null;
 }
 
 declare module 'typeless/types' {
@@ -35,3 +37,9 @@ declare module 'typeless/types' {
     myPage: MyPageState;
   }
 }
+
+export type ViewType =
+  | 'noTolerance'
+  | 'fitTolerance'
+  | 'oneSidedTolerance'
+  | 'twoSidedTolerance';
