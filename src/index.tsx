@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   createEpicMiddleware,
   onHmr,
@@ -31,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 export const store = createStore(
   rootReducer.getReducer(),
-  applyMiddleware(...middlewares)
+  composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 const render = () => {

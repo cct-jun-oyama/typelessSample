@@ -28,7 +28,6 @@ export const routeConfig: RouteConfig = {
 
 // --- Types ---
 export interface MyPageState {
-  foo: string;
   viewType: ViewType | null;
 }
 

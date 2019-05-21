@@ -8,7 +8,6 @@ export const epic = createEpic(MODULE);
 
 // --- Reducer ---
 const initialState: MyPageState = {
-  foo: 'bar',
   viewType: null,
 };
 

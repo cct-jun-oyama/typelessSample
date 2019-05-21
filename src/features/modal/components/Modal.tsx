@@ -1,10 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useActions } from 'typeless';
+import { useMappedState } from 'typeless';
 import './modal.css';
 import { UpdateButtons } from './UpdateButtons';
+import { ModalActions, Props } from '../../modal/interface';
+import { useModalModule } from '../../modal/module';
 
-const Modal = ({ isShowing, hide, title, children }) =>
-  isShowing
+export const Modal = (props: Props) => {
+  const { closeModal } = useActions(ModalActions);
+  useModalModule();
+  const { isShowing } = useMappedState(state => state.modal);
+
+  const dom = isShowing
     ? ReactDOM.createPortal(
         <>
           <div className="modal-overlay">
@@ -17,19 +25,19 @@ const Modal = ({ isShowing, hide, title, children }) =>
             >
               <div className="modal">
                 <div className="modal-header">
-                  <p className="modal-title">{title}</p>
+                  <p className="modal-title">{props.title}</p>
                   <button
                     type="button"
                     className="modal-close-button"
                     data-dismiss="modal"
                     aria-label="Close"
-                    onClick={hide}
+                    onClick={closeModal}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div className="modal-body">
-                  {children}
+                  {props.children}
                   <UpdateButtons />
                 </div>
               </div>
@@ -40,4 +48,6 @@ const Modal = ({ isShowing, hide, title, children }) =>
       )
     : null;
 
+  return dom;
+};
 export default Modal;
