@@ -1,6 +1,7 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
 import { OrderActions } from '../interface';
+import { Favorites, OrderNumbers } from '../../../../../interface';
 
 export function OrderView() {
   const { double } = useActions(OrderActions);
@@ -8,20 +9,17 @@ export function OrderView() {
 
   return (
     <div style={{ width: '300px' }}>
-      <p>穴径公差タイプ</p>
+      <p>すきなもの</p>
       <select>
-        <option value="noTolerance">りんご</option>
-        <option value="fitTolerance">ばなな</option>
-        <option value="oneSidedTolerance">ラム</option>
-        <option value="twoSidedTolerance">ウマ</option>
-        <option value="twoSidedTolerance">鉄</option>
-        <option value="twoSidedTolerance">銅</option>
+        {Favorites.map(v => {
+          return <option value="v.id">{v.name}</option>;
+        })}
       </select>
       <p>数量</p>
       <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        {OrderNumbers.map((v: number) => {
+          return <option value="v">{v}</option>;
+        })}
       </select>
       <p>合計 0</p>
     </div>
