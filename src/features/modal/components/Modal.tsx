@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { useActions } from 'typeless';
 import { useMappedState } from 'typeless';
 import './modal.css';
-import { UpdateButtons } from './UpdateButtons';
 import { ModalActions, Props } from '../../modal/interface';
 import { useModalModule } from '../../modal/module';
 
@@ -36,10 +35,7 @@ export const Modal = (props: Props) => {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div className="modal-body">
-                  {props.children}
-                  <UpdateButtons />
-                </div>
+                <div className="modal-body">{props.children}</div>
               </div>
             </div>
           </div>

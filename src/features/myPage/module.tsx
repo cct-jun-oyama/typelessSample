@@ -8,15 +8,17 @@ export const epic = createEpic(MODULE);
 
 // --- Reducer ---
 const initialState: MyPageState = {
-  viewType: null,
+  selectToleranceViewType: null,
+  holeTypeViewType: null,
 };
 
-export const reducer = createReducer(initialState).on(
-  MyPageActions.show,
-  (state, { viewType }) => {
-    state.viewType = viewType;
-  }
-);
+export const reducer = createReducer(initialState)
+  .on(MyPageActions.showToleranceSelectView, (state, { viewType }) => {
+    state.selectToleranceViewType = viewType;
+  })
+  .on(MyPageActions.showHoleSelectView, (state, { viewType }) => {
+    state.holeTypeViewType = viewType;
+  });
 
 // --- Module ---
 export default () => {

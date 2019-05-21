@@ -37,6 +37,7 @@ export const Dashboard = (props: DashboardProps) => {
         <Link href="/sample1">sample1</Link>
         <Link href="/sample2">sample2</Link>
         <Link href="/mypage">myPage</Link>
+        <Link href="/userOrder">userOrder</Link>
         <Button onClick={logout}>logout</Button>
       </Header>
       <Main>{children}</Main>

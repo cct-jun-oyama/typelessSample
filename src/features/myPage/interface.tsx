@@ -8,7 +8,12 @@ export const MODULE = 'myPage';
 
 // --- Actions ---
 export const MyPageActions = createActions(MODULE, {
-  show: (viewType: ViewType) => ({ payload: { viewType } }),
+  showToleranceSelectView: (viewType: SelectToleranceViewType) => ({
+    payload: { viewType },
+  }),
+  showHoleSelectView: (viewType: HoleTypeViewType) => ({
+    payload: { viewType },
+  }),
 });
 // --- Routing ---
 const ModuleLoader = React.lazy(() => import('./module'));
@@ -28,7 +33,8 @@ export const routeConfig: RouteConfig = {
 
 // --- Types ---
 export interface MyPageState {
-  viewType: ViewType | null;
+  selectToleranceViewType: SelectToleranceViewType | null;
+  holeTypeViewType: HoleTypeViewType | null;
 }
 
 declare module 'typeless/types' {
@@ -37,8 +43,10 @@ declare module 'typeless/types' {
   }
 }
 
-export type ViewType =
+export type SelectToleranceViewType =
   | 'noTolerance'
   | 'fitTolerance'
   | 'oneSidedTolerance'
   | 'twoSidedTolerance';
+
+export type HoleTypeViewType = 'insert' | 'straight' | 'tap';

@@ -12,6 +12,7 @@ export const Link = ({ href, onClick, children, ...others }: LinkProps) => {
   return (
     <a
       {...others}
+      style={{ padding: '5px 20px' }}
       onClick={e => {
         e.preventDefault();
         if (href) {
