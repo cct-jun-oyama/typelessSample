@@ -8,13 +8,13 @@ export const epic = createEpic(MODULE);
 
 // --- Reducer ---
 const initialState: UserOrderState = {
-  selectUserOrderViewType: 'userSetting',
+  viewType: 'userSetting',
 };
 
 export const reducer = createReducer(initialState).on(
   UserOrderActions.showUserOrderSelectView,
   (state, { viewType }) => {
-    state.selectUserOrderViewType = viewType;
+    state.viewType = viewType;
   }
 );
 

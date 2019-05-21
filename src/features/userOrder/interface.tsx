@@ -30,7 +30,7 @@ export const routeConfig: RouteConfig = {
 
 // --- Types ---
 export interface UserOrderState {
-  selectUserOrderViewType: userOrderViewType | null;
+  viewType: userOrderViewType | null;
 }
 
 declare module 'typeless/types' {

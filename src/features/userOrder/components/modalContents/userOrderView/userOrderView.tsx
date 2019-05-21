@@ -7,10 +7,10 @@ const UserSetting = React.lazy(() => import('./userSetting/module'));
 
 export const UserOrderView = () => {
   const { showUserOrderSelectView } = useActions(UserOrderActions);
-  const { selectUserOrderViewType } = useMappedState(state => state.userOrder);
+  const { viewType } = useMappedState(state => state.userOrder);
 
   const renderContent = () => {
-    switch (selectUserOrderViewType) {
+    switch (viewType) {
       case 'order': {
         return <Order />;
       }
@@ -29,7 +29,7 @@ export const UserOrderView = () => {
             name="userSettingradio"
             value="userSetting"
             style={{ width: '50%', textAlign: 'center' }}
-            checked={selectUserOrderViewType === 'userSetting'}
+            checked={viewType === 'userSetting'}
             onChange={e =>
               showUserOrderSelectView(e.target.value as userOrderViewType)
             }
@@ -42,7 +42,7 @@ export const UserOrderView = () => {
             name="orderradio"
             value="order"
             style={{ width: '50%', textAlign: 'center' }}
-            checked={selectUserOrderViewType === 'order'}
+            checked={viewType === 'order'}
             onChange={e =>
               showUserOrderSelectView(e.target.value as userOrderViewType)
             }
