@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 import { useActions, useMappedState } from 'typeless';
-import { UserOrderActions, userOrderViewType } from '../../../interface';
+import { Actions, ViewType } from '../interface';
 
-const Order = React.lazy(() => import('./order/module'));
-const UserSetting = React.lazy(() => import('./userSetting/module'));
+const Order = React.lazy(() => import('./OrderView'));
+const UserSetting = React.lazy(() => import('./UserSettingView'));
 
-export const UserOrderView = () => {
-  const { showUserOrderSelectView } = useActions(UserOrderActions);
-  const { viewType } = useMappedState(state => state.userOrder);
+export const ModalView = () => {
+  const { selectView } = useActions(Actions);
+  const { viewType } = useMappedState(state => state.userOrderModal);
 
   const renderContent = () => {
     switch (viewType) {
@@ -30,9 +30,7 @@ export const UserOrderView = () => {
             value="userSetting"
             style={{ width: '50%', textAlign: 'center' }}
             checked={viewType === 'userSetting'}
-            onChange={e =>
-              showUserOrderSelectView(e.target.value as userOrderViewType)
-            }
+            onChange={e => selectView(e.target.value as ViewType)}
           />
         </label>
         <label>
@@ -43,9 +41,7 @@ export const UserOrderView = () => {
             value="order"
             style={{ width: '50%', textAlign: 'center' }}
             checked={viewType === 'order'}
-            onChange={e =>
-              showUserOrderSelectView(e.target.value as userOrderViewType)
-            }
+            onChange={e => selectView(e.target.value as ViewType)}
           />
         </label>
       </div>

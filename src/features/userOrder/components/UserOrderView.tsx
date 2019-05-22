@@ -2,7 +2,7 @@ import React from 'react';
 import { useActions } from 'typeless';
 import { Dashboard } from 'src/components/Dashboard';
 import { Link } from 'src/components/Link';
-import { HoleModal } from './modalContents/HoleModal';
+import { UserOrderModal } from './modal/components/Modal';
 import { ModalActions } from '../../modal/interface';
 
 export const UserOrderView = () => {
@@ -20,7 +20,7 @@ export const UserOrderView = () => {
       <button className="button-default" onClick={() => openModal()}>
         Show Modal
       </button>
-      <HoleModal />
+      <UserOrderModal />
     </Dashboard>
   );
 };

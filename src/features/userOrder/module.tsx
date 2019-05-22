@@ -7,21 +7,9 @@ import { UserOrderActions, UserOrderState, MODULE } from './interface';
 export const epic = createEpic(MODULE);
 
 // --- Reducer ---
-const initialState: UserOrderState = {
-  viewType: 'userSetting',
-  userName: 'hoge fuga',
-  favoritesList: [],
-  favorites: '',
-  orderNumber: 1,
-};
+const initialState: UserOrderState = {};
 
-export const reducer = createReducer(initialState)
-  .on(UserOrderActions.showUserOrderSelectView, (state, { viewType }) => {
-    state.viewType = viewType;
-  })
-  .on(UserOrderActions.changeName, (state, { name }) => {
-    state.userName = name;
-  });
+export const reducer = createReducer(initialState);
 
 // --- Module ---
 export default () => {

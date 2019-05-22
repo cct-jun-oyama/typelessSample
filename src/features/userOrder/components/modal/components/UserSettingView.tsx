@@ -1,10 +1,10 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
-import { FavoritesList, UserOrderActions } from '../../../../../interface';
+import { FavoritesList, Actions } from '../interface';
 
-export function UserSettingView() {
-  const { changeName } = useActions(UserOrderActions);
-  const { userName } = useMappedState(state => state.userOrder);
+export const UserSettingView = () => {
+  const { changeName } = useActions(Actions);
+  const { userName } = useMappedState(state => state.userOrderModal);
   return (
     <div style={{ width: '300px' }}>
       <label>名前</label>
@@ -14,9 +14,9 @@ export function UserSettingView() {
         onChange={e => changeName(e.target.value as string)}
       />
       <p>好きなもの</p>
-      {FavoritesList.map(v => {
+      {FavoritesList.map((v, i) => {
         return (
-          <label>
+          <label key={i}>
             {v.name}
             <input
               type="checkbox"
@@ -28,4 +28,6 @@ export function UserSettingView() {
       })}
     </div>
   );
-}
+};
+
+export default UserSettingView;
