@@ -6,13 +6,13 @@ import { createActions } from 'typeless';
 // --- Constants ---
 export const MODULE = 'userOrderModal';
 
-export const FavoritesList = [
-  { id: 'fruit', name: 'くだもの' },
-  { id: 'meat', name: 'にく' },
-  { id: 'metal', name: 'きんぞく' },
+export const FavoritesKindList: FavoritesKindList = [
+  { id: 'fruit', name: 'くだもの', checked: false },
+  { id: 'meat', name: 'にく', checked: false },
+  { id: 'metal', name: 'きんぞく', checked: false },
 ];
 
-export const Favorites = [
+export const FavoritesList: FavoritesList = [
   { id: 'apple', name: 'りんご', amount: 140 },
   { id: 'banana', name: 'ばなな', amount: 180 },
   { id: 'sheep', name: 'ひつじ', amount: 700 },
@@ -31,6 +31,12 @@ export const Actions = createActions(MODULE, {
   changeName: (name: string) => ({
     payload: { name },
   }),
+  selectFavoritesList: (props: FavoritesListProps) => ({
+    payload: { props },
+  }),
+  selectFavorites: (favoritesName: Favorites) => ({
+    payload: { favoritesName },
+  }),
 });
 // --- Routing ---
 const ModuleLoader = React.lazy(() => import('./module'));
@@ -48,11 +54,15 @@ export const routeConfig: RouteConfig = {
   component: <UserOrderModalRoute />,
 };
 
+// --- Payload ---
+export type FavoritesListProps = FavoritesKindData;
+
 // --- Types ---
 export interface State {
   viewType: ViewType | null;
   userName: string;
-  favoritesList: FavoritesListType[];
+  favoritesKindList: FavoritesKindList;
+  favoritesList: FavoritesList;
   favorites: Favorites;
   orderNumber: number;
 }
@@ -65,7 +75,23 @@ declare module 'typeless/types' {
 
 export type ViewType = 'order' | 'userSetting';
 
-export type FavoritesListType = 'fruit' | 'meat' | 'metal';
+export type FavoritesKind = 'fruit' | 'meat' | 'metal';
+
+export type FavoritesKindData = {
+  id: FavoritesKind;
+  name: string;
+  checked: boolean;
+};
+
+export type FavoritesKindList = FavoritesKindData[];
+
+export type FavoritesData = {
+  id: Favorites;
+  name: string;
+  amount: number;
+};
+
+export type FavoritesList = FavoritesData[];
 
 export type Favorites =
   | 'apple'

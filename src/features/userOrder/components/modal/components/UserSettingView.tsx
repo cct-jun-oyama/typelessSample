@@ -1,10 +1,13 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
-import { FavoritesList, Actions } from '../interface';
+import { Actions } from '../interface';
+import _ from 'lodash';
 
 export const UserSettingView = () => {
-  const { changeName } = useActions(Actions);
-  const { userName } = useMappedState(state => state.userOrderModal);
+  const { changeName, selectFavoritesList } = useActions(Actions);
+  const { userName, favoritesKindList } = useMappedState(
+    state => state.userOrderModal
+  );
   return (
     <div style={{ width: '300px' }}>
       <label>名前</label>
@@ -14,14 +17,20 @@ export const UserSettingView = () => {
         onChange={e => changeName(e.target.value as string)}
       />
       <p>好きなもの</p>
-      {FavoritesList.map((v, i) => {
+      {favoritesKindList.map((v, i) => {
         return (
           <label key={i}>
             {v.name}
             <input
               type="checkbox"
-              id={v.id}
-              onChange={e => changeName(String(e.target.checked) as string)}
+              checked={v.checked}
+              onChange={e =>
+                selectFavoritesList({
+                  id: v.id,
+                  name: v.name,
+                  checked: e.target.checked,
+                })
+              }
             />
           </label>
         );
