@@ -16,11 +16,12 @@ export const epic = createEpic(MODULE);
 // --- Reducer ---
 const initialState: State = {
   viewType: 'userSetting',
-  userName: 'hoge fuga',
+  userName: 'user name',
   favoritesKindList: FavoritesKindList,
   favoritesList: FavoritesList,
   favorites: '',
   orderNumber: 1,
+  totalAmount: 0,
 };
 
 export const reducer = createReducer(initialState)
@@ -40,6 +41,18 @@ export const reducer = createReducer(initialState)
   })
   .on(Actions.selectFavorites, (state, { favoritesName }) => {
     state.favorites = favoritesName;
+  })
+  .on(Actions.selectOrderNumber, (state, { orderNumber }) => {
+    state.orderNumber = orderNumber;
+  })
+  .onMany([Actions.selectFavorites, Actions.selectOrderNumber], state => {
+    const favorites = _.find(
+      state.favoritesList,
+      v => v.id === state.favorites
+    );
+    if (favorites) {
+      state.totalAmount = favorites.amount * state.orderNumber;
+    }
   });
 
 // --- Module ---

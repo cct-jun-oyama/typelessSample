@@ -37,6 +37,12 @@ export const Actions = createActions(MODULE, {
   selectFavorites: (favoritesName: Favorites) => ({
     payload: { favoritesName },
   }),
+  selectOrderNumber: (orderNumber: number) => ({
+    payload: { orderNumber },
+  }),
+  calculateTotalAmount: (props: any) => ({
+    payload: { props },
+  }),
 });
 // --- Routing ---
 const ModuleLoader = React.lazy(() => import('./module'));
@@ -65,6 +71,7 @@ export interface State {
   favoritesList: FavoritesList;
   favorites: Favorites;
   orderNumber: number;
+  totalAmount: number;
 }
 
 declare module 'typeless/types' {

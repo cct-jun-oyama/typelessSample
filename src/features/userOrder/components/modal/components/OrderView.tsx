@@ -3,8 +3,10 @@ import { useActions, useMappedState } from 'typeless';
 import { Actions, OrderNumbers, Favorites } from '../interface';
 
 export const OrderView = () => {
-  const { selectFavorites } = useActions(Actions);
-  const { favoritesList } = useMappedState(state => state.userOrderModal);
+  const { selectFavorites, selectOrderNumber } = useActions(Actions);
+  const { favoritesList, totalAmount } = useMappedState(
+    state => state.userOrderModal
+  );
   return (
     <div style={{ width: '300px' }}>
       <p>すきなもの</p>
@@ -18,16 +20,16 @@ export const OrderView = () => {
         })}
       </select>
       <p>数量</p>
-      <select>
+      <select onChange={e => selectOrderNumber(Number(e.target.value))}>
         {OrderNumbers.map((v: number, i) => {
           return (
-            <option key={i} value="v">
+            <option key={i} value={v}>
               {v}
             </option>
           );
         })}
       </select>
-      <p>合計 0</p>
+      <p>合計 {totalAmount}円</p>
     </div>
   );
 };
