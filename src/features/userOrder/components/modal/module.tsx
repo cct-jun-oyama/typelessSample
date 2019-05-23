@@ -7,6 +7,7 @@ import {
   MODULE,
   FavoritesKindList,
   FavoritesList,
+  FavoritesKindData,
 } from './interface';
 import _ from 'lodash';
 
@@ -32,27 +33,17 @@ export const reducer = createReducer(initialState)
     state.userName = name;
   })
   .on(Actions.selectFavoritesList, (state, { props }) => {
-    state.favoritesKindList = _.map(state.favoritesKindList, item => {
-      return {
-        ...item,
-        checked: item.id === props.id ? props.checked : item.checked,
-      };
-    });
+    state.favoritesKindList = _favoritesKindList(state, props);
+    state.favorites = _setFavoritesByKind(state, props);
+    calculateTotalAmount(state);
   })
   .on(Actions.selectFavorites, (state, { favoritesName }) => {
     state.favorites = favoritesName;
+    calculateTotalAmount(state);
   })
   .on(Actions.selectOrderNumber, (state, { orderNumber }) => {
     state.orderNumber = orderNumber;
-  })
-  .onMany([Actions.selectFavorites, Actions.selectOrderNumber], state => {
-    const favorites = _.find(
-      state.favoritesList,
-      v => v.id === state.favorites
-    );
-    if (favorites) {
-      state.totalAmount = favorites.amount * state.orderNumber;
-    }
+    calculateTotalAmount(state);
   });
 
 // --- Module ---
@@ -73,3 +64,35 @@ export const useModalModule = () =>
     reducerPath: ['userOrderModal'],
     actions: Actions,
   });
+
+const _favoritesKindList = (state: State, props: FavoritesKindData) => {
+  return _.map(state.favoritesKindList, item => {
+    return {
+      ...item,
+      checked: item.id === props.id ? props.checked : item.checked,
+    };
+  });
+};
+
+const _setFavoritesByKind = (state: State, props: FavoritesKindData) => {
+  const userSelectedKind = _.map(
+    _.filter(_favoritesKindList(state, props), v => v.checked),
+    v => v.id
+  );
+  const filteredFavoritesList: FavoritesList = _.filter(
+    state.favoritesList,
+    item => userSelectedKind.includes(item.kind)
+  );
+  if (userSelectedKind.includes(props.id)) {
+    return state.favorites;
+  } else {
+    return filteredFavoritesList[0].id;
+  }
+};
+
+const calculateTotalAmount = (state: State) => {
+  const favorites = _.find(state.favoritesList, v => v.id === state.favorites);
+  if (favorites) {
+    state.totalAmount = favorites.amount * state.orderNumber;
+  }
+};

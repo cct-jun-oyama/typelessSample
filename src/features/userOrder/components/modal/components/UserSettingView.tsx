@@ -16,7 +16,7 @@ export const UserSettingView = () => {
         value={userName}
         onChange={e => changeName(e.target.value as string)}
       />
-      <p>好きなもの</p>
+      <p>すきなもののしゅるい</p>
       {favoritesKindList.map((v, i) => {
         return (
           <label key={i}>

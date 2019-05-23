@@ -13,12 +13,12 @@ export const FavoritesKindList: FavoritesKindList = [
 ];
 
 export const FavoritesList: FavoritesList = [
-  { id: 'apple', name: 'りんご', amount: 140 },
-  { id: 'banana', name: 'ばなな', amount: 180 },
-  { id: 'sheep', name: 'ひつじ', amount: 700 },
-  { id: 'horse', name: 'うま', amount: 800 },
-  { id: 'iron', name: 'てつ', amount: 510 },
-  { id: 'copper', name: 'どう', amount: 600 },
+  { id: 'apple', name: 'りんご', amount: 140, kind: 'fruit' },
+  { id: 'banana', name: 'ばなな', amount: 180, kind: 'fruit' },
+  { id: 'sheep', name: 'ひつじ', amount: 700, kind: 'meat' },
+  { id: 'horse', name: 'うま', amount: 800, kind: 'meat' },
+  { id: 'iron', name: 'てつ', amount: 510, kind: 'metal' },
+  { id: 'copper', name: 'どう', amount: 600, kind: 'metal' },
 ];
 
 export const OrderNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -40,10 +40,8 @@ export const Actions = createActions(MODULE, {
   selectOrderNumber: (orderNumber: number) => ({
     payload: { orderNumber },
   }),
-  calculateTotalAmount: (props: any) => ({
-    payload: { props },
-  }),
 });
+
 // --- Routing ---
 const ModuleLoader = React.lazy(() => import('./module'));
 
@@ -82,7 +80,7 @@ declare module 'typeless/types' {
 
 export type ViewType = 'order' | 'userSetting';
 
-export type FavoritesKind = 'fruit' | 'meat' | 'metal';
+export type FavoritesKind = 'fruit' | 'meat' | 'metal' | '';
 
 export type FavoritesKindData = {
   id: FavoritesKind;
@@ -96,6 +94,7 @@ export type FavoritesData = {
   id: Favorites;
   name: string;
   amount: number;
+  kind: FavoritesKind;
 };
 
 export type FavoritesList = FavoritesData[];
