@@ -4,7 +4,7 @@ import { Actions } from '../interface';
 import _ from 'lodash';
 
 export const UserSettingView = () => {
-  const { changeName, selectFavoritesList } = useActions(Actions);
+  const { changeName, selectFavoritesKind } = useActions(Actions);
   const { userName, favoritesKindList } = useMappedState(
     state => state.userOrderModal
   );
@@ -25,7 +25,7 @@ export const UserSettingView = () => {
               type="checkbox"
               checked={v.checked}
               onChange={e =>
-                selectFavoritesList({
+                selectFavoritesKind({
                   id: v.id,
                   name: v.name,
                   checked: e.target.checked,

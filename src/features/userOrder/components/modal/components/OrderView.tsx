@@ -1,11 +1,11 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
-import { Actions, OrderNumbers, Favorites } from '../interface';
+import { Actions, OrderNumber, Favorites } from '../interface';
 import { FilteredFavoritesList } from '../selectors';
 
 export const OrderView = () => {
   const { selectFavorites, selectOrderNumber } = useActions(Actions);
-  const { favorites, orderNumber, totalAmount } = useMappedState(
+  const { totalAmount, orderNumberList } = useMappedState(
     state => state.userOrderModal
   );
   return (
@@ -14,7 +14,7 @@ export const OrderView = () => {
       <select onChange={e => selectFavorites(e.target.value as Favorites)}>
         {FilteredFavoritesList().map((v, i) => {
           return (
-            <option key={i} value={v.id} selected={v.id === favorites}>
+            <option key={i} value={v.id} selected={v.selected}>
               {v.name}
             </option>
           );
@@ -22,10 +22,10 @@ export const OrderView = () => {
       </select>
       <p>数量</p>
       <select onChange={e => selectOrderNumber(Number(e.target.value))}>
-        {OrderNumbers.map((v: number, i) => {
+        {orderNumberList.map((v: OrderNumber, i) => {
           return (
-            <option key={i} value={v} selected={v === orderNumber}>
-              {v}
+            <option key={i} value={v.id} selected={v.selected}>
+              {v.id}
             </option>
           );
         })}

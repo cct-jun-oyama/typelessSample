@@ -13,15 +13,26 @@ export const FavoritesKindList: FavoritesKindList = [
 ];
 
 export const FavoritesList: FavoritesList = [
-  { id: 'apple', name: 'りんご', amount: 140, kind: 'fruit' },
-  { id: 'banana', name: 'ばなな', amount: 180, kind: 'fruit' },
-  { id: 'sheep', name: 'ひつじ', amount: 700, kind: 'meat' },
-  { id: 'horse', name: 'うま', amount: 800, kind: 'meat' },
-  { id: 'iron', name: 'てつ', amount: 510, kind: 'metal' },
-  { id: 'copper', name: 'どう', amount: 600, kind: 'metal' },
+  { id: 'apple', name: 'りんご', amount: 140, kind: 'fruit', selected: true },
+  { id: 'banana', name: 'ばなな', amount: 180, kind: 'fruit', selected: false },
+  { id: 'sheep', name: 'ひつじ', amount: 700, kind: 'meat', selected: false },
+  { id: 'horse', name: 'うま', amount: 800, kind: 'meat', selected: false },
+  { id: 'iron', name: 'てつ', amount: 510, kind: 'metal', selected: false },
+  { id: 'copper', name: 'どう', amount: 600, kind: 'metal', selected: false },
 ];
 
-export const OrderNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+export const OrderNumberList: OrderNumberList = [
+  { id: 1, selected: true },
+  { id: 2, selected: false },
+  { id: 3, selected: false },
+  { id: 4, selected: false },
+  { id: 5, selected: false },
+  { id: 6, selected: false },
+  { id: 7, selected: false },
+  { id: 8, selected: false },
+  { id: 9, selected: false },
+  { id: 10, selected: false },
+];
 
 // --- Actions ---
 export const Actions = createActions(MODULE, {
@@ -31,7 +42,7 @@ export const Actions = createActions(MODULE, {
   changeName: (name: string) => ({
     payload: { name },
   }),
-  selectFavoritesList: (props: FavoritesListProps) => ({
+  selectFavoritesKind: (props: FavoritesKindProps) => ({
     payload: { props },
   }),
   selectFavorites: (favoritesName: Favorites) => ({
@@ -59,7 +70,7 @@ export const routeConfig: RouteConfig = {
 };
 
 // --- Payload ---
-export type FavoritesListProps = FavoritesKindData;
+export type FavoritesKindProps = FavoritesKindData;
 
 // --- Types ---
 export interface State {
@@ -67,6 +78,7 @@ export interface State {
   userName: string;
   favoritesKindList: FavoritesKindList;
   favoritesList: FavoritesList;
+  orderNumberList: OrderNumberList;
   favorites: Favorites;
   orderNumber: number;
   totalAmount: number;
@@ -79,6 +91,9 @@ declare module 'typeless/types' {
 }
 
 export type ViewType = 'order' | 'userSetting';
+
+export type OrderNumber = { id: number; selected: boolean };
+export type OrderNumberList = OrderNumber[];
 
 export type FavoritesKind = 'fruit' | 'meat' | 'metal' | '';
 
@@ -95,6 +110,7 @@ export type FavoritesData = {
   name: string;
   amount: number;
   kind: FavoritesKind;
+  selected: boolean;
 };
 
 export type FavoritesList = FavoritesData[];
