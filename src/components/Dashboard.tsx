@@ -38,6 +38,7 @@ export const Dashboard = (props: DashboardProps) => {
         <Link href="/sample2">sample2</Link>
         <Link href="/mypage">myPage</Link>
         <Link href="/userOrder">userOrder</Link>
+        <Link href="/sampleApi">sampleApi</Link>
         <Button onClick={logout}>logout</Button>
       </Header>
       <Main>{children}</Main>
