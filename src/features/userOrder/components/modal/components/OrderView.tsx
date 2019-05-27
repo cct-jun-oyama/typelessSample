@@ -33,8 +33,8 @@ export const OrderView = () => {
       >
         {orderNumberList.map((v: OrderNumber, i) => {
           return (
-            <option key={i} value={v.id} selected={v.selected}>
-              {v.id}
+            <option key={i} value={v}>
+              {v}
             </option>
           );
         })}

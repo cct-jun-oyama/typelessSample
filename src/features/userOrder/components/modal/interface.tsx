@@ -13,26 +13,15 @@ export const FavoritesKindList: FavoritesKindList = [
 ];
 
 export const FavoritesList: FavoritesList = [
-  { id: 'apple', name: 'りんご', amount: 140, kind: 'fruit', selected: true },
-  { id: 'banana', name: 'ばなな', amount: 180, kind: 'fruit', selected: false },
-  { id: 'sheep', name: 'ひつじ', amount: 700, kind: 'meat', selected: false },
-  { id: 'horse', name: 'うま', amount: 800, kind: 'meat', selected: false },
-  { id: 'iron', name: 'てつ', amount: 510, kind: 'metal', selected: false },
-  { id: 'copper', name: 'どう', amount: 600, kind: 'metal', selected: false },
+  { id: 'apple', name: 'りんご', amount: 140, kind: 'fruit' },
+  { id: 'banana', name: 'ばなな', amount: 180, kind: 'fruit' },
+  { id: 'sheep', name: 'ひつじ', amount: 700, kind: 'meat' },
+  { id: 'horse', name: 'うま', amount: 800, kind: 'meat' },
+  { id: 'iron', name: 'てつ', amount: 510, kind: 'metal' },
+  { id: 'copper', name: 'どう', amount: 600, kind: 'metal' },
 ];
 
-export const OrderNumberList: OrderNumberList = [
-  { id: 1, selected: true },
-  { id: 2, selected: false },
-  { id: 3, selected: false },
-  { id: 4, selected: false },
-  { id: 5, selected: false },
-  { id: 6, selected: false },
-  { id: 7, selected: false },
-  { id: 8, selected: false },
-  { id: 9, selected: false },
-  { id: 10, selected: false },
-];
+export const OrderNumberList: OrderNumberList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // --- Actions ---
 export const Actions = createActions(MODULE, {
@@ -92,7 +81,7 @@ declare module 'typeless/types' {
 
 export type ViewType = 'order' | 'userSetting';
 
-export type OrderNumber = { id: number; selected: boolean };
+export type OrderNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export type OrderNumberList = OrderNumber[];
 
 export type FavoritesKind = 'fruit' | 'meat' | 'metal' | '';
@@ -110,7 +99,6 @@ export type FavoritesData = {
   name: string;
   amount: number;
   kind: FavoritesKind;
-  selected: boolean;
 };
 
 export type FavoritesList = FavoritesData[];

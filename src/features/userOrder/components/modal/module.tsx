@@ -41,12 +41,10 @@ export const reducer = createReducer(initialState)
   })
   .on(Actions.selectFavorites, (state, { favoritesName }) => {
     state.favorites = favoritesName;
-    state.favoritesList = _favoritesList(state, favoritesName);
     calculateTotalAmount(state);
   })
   .on(Actions.selectOrderNumber, (state, { orderNumber }) => {
     state.orderNumber = orderNumber;
-    state.orderNumberList = _orderNumberList(state, orderNumber);
     calculateTotalAmount(state);
   });
 
@@ -109,24 +107,6 @@ const _setFavoritesByKind = (state: State, props: FavoritesKindData) => {
   }
   calculateTotalAmountWithFavorites(state, favorites);
   return favorites;
-};
-
-const _favoritesList = (state: State, favoritesName: Favorites) => {
-  return _.map(state.favoritesList, item => {
-    return {
-      ...item,
-      selected: item.id === favoritesName,
-    };
-  });
-};
-
-const _orderNumberList = (state: State, orderNumber: number) => {
-  return _.map(state.orderNumberList, item => {
-    return {
-      ...item,
-      selected: item.id === orderNumber,
-    };
-  });
 };
 
 const calculateTotalAmount = (state: State) => {
