@@ -1,16 +1,13 @@
 import React from 'react';
 import { useActions, useMappedState } from 'typeless';
 import { Actions, OrderNumber, Favorites } from '../interface';
-import { FilteredFavoritesList } from '../selectors';
+import { FilteredFavoritesList, CalculateTotalAmount } from '../selectors';
 
 export const OrderView = () => {
   const { selectFavorites, selectOrderNumber } = useActions(Actions);
-  const {
-    totalAmount,
-    orderNumberList,
-    favorites,
-    orderNumber,
-  } = useMappedState(state => state.userOrderModal);
+  const { orderNumberList, favorites, orderNumber } = useMappedState(
+    state => state.userOrderModal
+  );
   return (
     <div style={{ width: '300px' }}>
       <p>すきなもの</p>
@@ -39,7 +36,7 @@ export const OrderView = () => {
           );
         })}
       </select>
-      <p>合計 {totalAmount}円</p>
+      <p>合計 {CalculateTotalAmount()}円</p>
     </div>
   );
 };

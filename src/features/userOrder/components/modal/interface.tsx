@@ -8,7 +8,7 @@ export const MODULE = 'userOrderModal';
 
 export const FavoritesKindList: FavoritesKindList = [
   { id: 'fruit', name: 'くだもの', checked: false },
-  { id: 'meat', name: 'にく', checked: false },
+  { id: 'meat', name: 'にく', checked: true },
   { id: 'metal', name: 'きんぞく', checked: false },
 ];
 
@@ -70,7 +70,6 @@ export interface State {
   orderNumberList: OrderNumberList;
   favorites: Favorites;
   orderNumber: number;
-  totalAmount: number;
 }
 
 declare module 'typeless/types' {

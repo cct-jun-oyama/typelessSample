@@ -23,9 +23,8 @@ const initialState: State = {
   favoritesKindList: FavoritesKindList,
   favoritesList: FavoritesList,
   orderNumberList: OrderNumberList,
-  favorites: '',
+  favorites: 'sheep',
   orderNumber: 1,
-  totalAmount: 0,
 };
 
 export const reducer = createReducer(initialState)
@@ -41,11 +40,9 @@ export const reducer = createReducer(initialState)
   })
   .on(Actions.selectFavorites, (state, { favoritesName }) => {
     state.favorites = favoritesName;
-    calculateTotalAmount(state);
   })
   .on(Actions.selectOrderNumber, (state, { orderNumber }) => {
     state.orderNumber = orderNumber;
-    calculateTotalAmount(state);
   });
 
 // --- Module ---
@@ -84,47 +81,30 @@ const _setFavoritesByKind = (state: State, props: FavoritesKindData) => {
       checked: item.id === props.id ? props.checked : item.checked,
     };
   });
-  const userSelectedKind = _.map(
+  const userSelectedKindIds = _.map(
     _.filter(_favoritesKindList, v => v.checked),
     v => v.id
   );
   const filteredFavoritesList: FavoritesList = _.filter(
     state.favoritesList,
-    item => userSelectedKind.includes(item.kind)
+    item => userSelectedKindIds.includes(item.kind)
   );
 
   let favorites: Favorites;
-
-  if (userSelectedKind.includes(props.id) && _.isEmpty(state.favorites)) {
+  if (userSelectedKindIds.includes(props.id) && _.isEmpty(state.favorites)) {
     const _favorites = _.find(state.favoritesList, v => v.kind === props.id);
     favorites = _favorites ? _favorites.id : '';
-  } else if (userSelectedKind.includes(props.id)) {
+  } else if (userSelectedKindIds.includes(props.id)) {
     favorites = state.favorites;
-  } else if (_.isEmpty(userSelectedKind) || _.isEmpty(filteredFavoritesList)) {
+  } else if (
+    _.isEmpty(userSelectedKindIds) ||
+    _.isEmpty(filteredFavoritesList)
+  ) {
     favorites = '';
+  } else if (state.favorites) {
+    favorites = state.favorites;
   } else {
     favorites = filteredFavoritesList[0].id as Favorites;
   }
-  calculateTotalAmountWithFavorites(state, favorites);
   return favorites;
-};
-
-const calculateTotalAmount = (state: State) => {
-  const targetFavorites = _.find(
-    state.favoritesList,
-    v => v.id === state.favorites
-  );
-  state.totalAmount = targetFavorites
-    ? targetFavorites.amount * state.orderNumber
-    : 0;
-};
-
-const calculateTotalAmountWithFavorites = (
-  state: State,
-  favorites: Favorites
-) => {
-  const targetFavorites = _.find(state.favoritesList, v => v.id === favorites);
-  state.totalAmount = targetFavorites
-    ? targetFavorites.amount * state.orderNumber
-    : 0;
 };
